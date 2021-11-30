@@ -1,4 +1,4 @@
-# unreal-world
+# eth-nfts
 
 Deploy your own ERC-721 contracts to the Ethereum blockchain and mint your NFTs!
 This tutorial will deploy to the Ropsten test network - there are about 5 test networks but Ropsten is the easiest to get test ETH for. Go here to get some test eth in your Ropsten wallet: https://faucet.ropsten.be/
