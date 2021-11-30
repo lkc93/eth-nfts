@@ -22,3 +22,5 @@ PUBLIC_KEY="" // Your wallet address
 - `npx hardhat run scripts/deploy.js --network ropsten` 
 - `node scripts/mint-nft.js`
 
+And voila - look at your Ropsten test wallet in Metamask and you should see your nft! This is what I see: 
+![WhatsApp Image 2021-11-27 at 3 29 24 PM](https://user-images.githubusercontent.com/9842449/144080764-b8b697ca-e4cf-4a8d-b019-5fb3bcaed8f6.jpeg)
