@@ -5,16 +5,16 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract UnrealWorld is ERC721URIStorage, Ownable {
+contract BucketListFamily is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    constructor() ERC721("UnrealWorld", "UW") {}
+    constructor() ERC721("BucketListFamily", "BucketListFamily") {}
 
-    uint256 private MAX_TOKEN_SUPPLY = 10;
-    uint256 public price = 100000000000000000; // .1 eth
+    uint256 private MAX_TOKEN_SUPPLY = 10000;
+    uint256 public price = 70000000000000000; // ~10 bucks 
 
-    string private baseTokenURI = "ipfs://QmVsDzFJWNU9drbysyqGEoVMUhH366YTErdKUUc53yfLMK/";
+    string private baseTokenURI = "https://api.thebucketliststudios.com/nfts/wildlife/series-1/";
 
     function mintNFT(address recipient)
         public payable

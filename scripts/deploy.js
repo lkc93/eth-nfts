@@ -1,7 +1,6 @@
 async function main() {
     const UnrealWorld = await ethers.getContractFactory("UnrealWorld");
 
-
     const unrealWorld = await UnrealWorld.deploy()
 
     console.log("UnrealWorld deployed to:", unrealWorld.address);
