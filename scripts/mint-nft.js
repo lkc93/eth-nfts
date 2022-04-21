@@ -7,11 +7,16 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
 const web3 = createAlchemyWeb3(API_URL)
 
 const contract = require("../artifacts/contracts/UnrealWorlds.sol/UnrealWorld.json")
-const contractAddress = "0xb03cb0ea1252e09e64c43106c539a81b2a57508d"
+const contractAddress = "0xeeb1134b0E210F3cb9f3903eaed1EF8070e3F9E9"
 const nftContract = new web3.eth.Contract(contract.abi, contractAddress)
 
-async function mintNFT(tokenURI) {
+async function printAbi() {
+    console.log(JSON.stringify(contract.abi));
+}
+
+async function mintNFT() {
     const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, 'latest'); //get latest nonce
+    const maxPriorityFee = await web3.eth.getMaxPriorityFeePerGas();
 
     //the transaction
     const tx = {
@@ -19,7 +24,9 @@ async function mintNFT(tokenURI) {
         'to': contractAddress,
         'nonce': nonce,
         'gas': 500000,
-        'data': nftContract.methods.mintNFT(PUBLIC_KEY, tokenURI).encodeABI()
+        'maxPriorityFeePerGas': maxPriorityFee,
+        'data': nftContract.methods.mintNFT(PUBLIC_KEY).encodeABI(),
+        'value': 700000000000000000,
     };
 
     const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)
@@ -48,4 +55,10 @@ async function mintNFT(tokenURI) {
         })
 }
 
-mintNFT("https://gateway.pinata.cloud/ipfs/QmVVyNxfRVNRzVuFNtQxKn8Vw2zqa5RZ97iSGLgU13fnqX")
+printAbi()
+
+// mintNFT()
+
+// mintNFT("https://gateway.pinata.cloud/ipfs/QmVsDzFJWNU9drbysyqGEoVMUhH366YTErdKUUc53yfLMK/1")
+
+// mintNFT("https://gateway.pinata.cloud/ipfs/QmVVyNxfRVNRzVuFNtQxKn8Vw2zqa5RZ97iSGLgU13fnqX")
