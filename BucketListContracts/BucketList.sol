@@ -26,15 +26,12 @@ contract BucketList is ERC721URIStorage, Ownable, RandomlyAssigned {
     {
         require(msg.value == numberOfTokens * price, "Tried to mint with the wrong amount");
 
-
         for (uint256 i = 0; i < numberOfTokens; i++) {
             uint256 newItemId = nextToken(); // RandomlyAssigned will give us a token.
 
             _mint(recipient, newItemId);
         
             _setTokenURI(newItemId, string(abi.encodePacked(baseTokenURI, Strings.toString(newItemId))));
-
-            return newItemId;        
         }
     }
 

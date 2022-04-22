@@ -1,9 +1,9 @@
 async function main() {
-    const UnrealWorld = await ethers.getContractFactory("UnrealWorld");
+    const UnrealWorld = await ethers.getContractFactory("BucketList");
 
     const unrealWorld = await UnrealWorld.deploy()
 
-    console.log("UnrealWorld deployed to:", unrealWorld.address);
+    console.log("BucketList deployed to:", unrealWorld.address);
 }
 
 main()
