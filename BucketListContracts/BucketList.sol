@@ -12,38 +12,30 @@ contract BucketList is ERC721URIStorage, Ownable, RandomlyAssigned {
     using Counters for Counters.Counter;
     uint256 private MAX_TOKEN_SUPPLY = 10000;
     uint256 public price = 700000000000000000; // ~10 bucks - removed 2 0s for now to preserve matic
-
-    string private baseTokenURI = "https://api.thebucketliststudios.com/nfts/wildlife/series-1/";
+    string public baseTokenURI;
 
     constructor()
         ERC721("BucketListFamily", "BucketListFamily")
         RandomlyAssigned(MAX_TOKEN_SUPPLY, 1)
-    {}
-
-    function mintNFT(address recipient)
-        public payable
-        returns (uint256)
     {
-        require(msg.value == price, "Tried to mint with the wrong amount");
-
-        uint256 newItemId = nextToken(); // RandomlyAssigned will give us a token.
-
-        _mint(recipient, newItemId);
-        
-        _setTokenURI(newItemId, string(abi.encodePacked(baseTokenURI, Strings.toString(newItemId))));
-
-        return newItemId;
+        baseTokenURI = "https://api.thebucketliststudios.com/nfts/wildlife/series-1/";
     }
 
-    function mintNFTOwner(address recipient)
-        public
-        onlyOwner
-        returns (uint256)
+    function mintNFT(address recipient, uint256 numberOfTokens)
+        public payable
     {
-        uint256 newItemId = nextToken();
-        _mint(recipient, newItemId);
-        _setTokenURI(newItemId, string(abi.encodePacked(baseTokenURI, Strings.toString(newItemId))));
+        require(msg.value == numberOfTokens * price, "Tried to mint with the wrong amount");
 
-        return newItemId;
+        for (uint256 i = 0; i < numberOfTokens; i++) {
+            uint256 newItemId = nextToken(); // RandomlyAssigned will give us a token.
+
+            _mint(recipient, newItemId);
+        
+            _setTokenURI(newItemId, string(abi.encodePacked(baseTokenURI, Strings.toString(newItemId))));
+        }
+    }
+
+    function setBaseUri(string memory _uri) external onlyOwner {
+        baseTokenURI = _uri;
     }
 }
